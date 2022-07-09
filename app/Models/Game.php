@@ -11,10 +11,15 @@ class Game extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'games';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'studio_id'];
 
-    public function genres(){
+    public function genres()
+    {
         return $this->belongsToMany(Genre::class, 'game_genres', 'game_id', 'genre_id');
     }
 
+    public function studio()
+    {
+        return $this->belongsTo(Studio::class);
+    }
 }

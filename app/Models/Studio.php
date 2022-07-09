@@ -13,4 +13,9 @@ class Studio extends Model
     protected $table = 'studios';
     protected $fillable = ['name'];
 
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
+
 }
