@@ -9,6 +9,7 @@ class StoreController extends BaseController
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
+//        передаем data в метод store GameService
         $this->service->store($data);
         return redirect()->route('admin.game.index');
     }

@@ -5,25 +5,25 @@
                 <li class="nav-item">
                     <a href="{{route('admin.main.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
-                        <p>Main</p>
+                        <p>Главная</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('admin.game.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-gamepad"></i>
-                        <p>Games</p>
+                        <p>Игры</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('admin.studio.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-user-friends"></i>
-                        <p>Studios</p>
+                        <p>Студии</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('admin.genre.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
-                        <p>Genres</p>
+                        <p>Жанры</p>
                     </a>
                 </li>
             </ul>

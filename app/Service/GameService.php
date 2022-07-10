@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class GameService
 {
+//    метод для добавления игр в бд
     public function store($data)
     {
         try {
@@ -27,6 +28,7 @@ class GameService
         }
     }
 
+//    метод для изменения игр в бд
     public function update($data, $game)
     {
         try {

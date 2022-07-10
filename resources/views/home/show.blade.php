@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     @extends('includes.menu')
-
     <section class="content">
         <div class="container-fluid">
             <div class="row d-flex justify-content-sm-between">
@@ -18,7 +17,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>

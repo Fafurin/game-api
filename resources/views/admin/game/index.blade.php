@@ -1,33 +1,26 @@
 @extends('admin.layouts.main')
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Games</h1>
-                    </div><!-- /.col -->
+                        <h1 class="m-0">Игры</h1>
+                    </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.main.index') }}">Main</a></li>
-                            <li class="breadcrumb-item active">Games</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.main.index') }}">Главная</a></li>
+                            <li class="breadcrumb-item active">Игры</li>
                         </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
                 <div class="row">
-
-                    <div class="col-1 mb-3">
-                        <a href="{{route('admin.game.create')}}" class="btn btn-block btn-primary">Create</a>
+                    <div class="col-2 mb-3">
+                        <a href="{{route('admin.game.create')}}" class="btn btn-block btn-primary">Создать</a>
                     </div>
                     <div class="col-12">
                         <div class="card">
@@ -36,12 +29,12 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Studio</th>
-                                        <th>Genres</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
-                                        <th colspan="3">Actions</th>
+                                        <th>Название</th>
+                                        <th>Студия</th>
+                                        <th>Жанр</th>
+                                        <th>Создана</th>
+                                        <th>Изменена</th>
+                                        <th colspan="2">Действия</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -75,16 +68,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
-                <!-- /.row -->
-
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 @endsection

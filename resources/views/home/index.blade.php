@@ -17,7 +17,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
             <hr>
             <div class="row justify-content-center">

@@ -11,6 +11,7 @@ class UpdateController extends BaseController
     public function __invoke(UpdateRequest $request, Game $game)
     {
         $data = $request->validated();
+        // передаем data в метод update GameService
         $this->service->update($data, $game);
         return redirect()->route('admin.game.index');
     }
