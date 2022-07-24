@@ -32,4 +32,13 @@ class Game extends Model
     {
         return $this->belongsTo(Studio::class);
     }
+
+    public static function rules()
+    {
+        return [
+            'name' => 'required|string',
+            'studio' => 'required|string',
+            'genres' => 'required|string',
+        ];
+    }
 }

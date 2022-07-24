@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Api\V1\GameStoreRequest;
-use App\Http\Requests\Api\V1\GameUpdateRequest;
 use App\Http\Resources\GameCollection;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
 use App\Models\Genre;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class GameController extends BaseController
 {
@@ -28,24 +28,25 @@ class GameController extends BaseController
         return response()->json(new GameResource($game), 200);
     }
 
-    public function save(GameStoreRequest $request)
+    public function save(Request $request)
     {
-        $data = $request->validated();
-        // передаем data в метод store GameService
-        $game = $this->service->store($data);
+        $validator = Validator::make($request->all(), Game::rules());
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
+        $game = $this->service->store($request->all());
         return response()->json(new GameResource($game), 201);
     }
 
-    public function update(GameUpdateRequest $request, int $id)
+    public function update(Request $request, int $id)
     {
         $game = Game::find($id);
         if (is_null($game)) {
             return response()->json(['error' => true, 'message' => 'Not found'], 404);
         }
-        $data = $request->validated();
 //        // передаем data в метод store GameService
-        $game = $this->service->update($data, $game);
+        $game = $this->service->update($request, $game);
 
         return response()->json(new GameResource($game), 200);
     }
