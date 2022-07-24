@@ -8,14 +8,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Studio extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'studios';
-    protected $fillable = ['name'];
+
+    protected $fillable = [
+        'name'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     public function games()
     {
         return $this->hasMany(Game::class);
     }
-
 }
