@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('game_genres', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('genre_id');
+            $table->primary(array('game_id', 'genre_id'));
             $table->timestamps();
 
             $table->index('game_id', 'game_genre_game_idx');
