@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Game;
+namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class GameStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,17 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'studio_id' => 'required|integer|exists:studios,id',
-            'genre_ids' => 'nullable|array',
-            'genre_ids.*' => 'nullable|integer|exists:genres,id',
+            'studio' => 'required|string',
+            'genres' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required!',
+            'studio.required' => 'Studio is required!',
+            'genres.required' => 'Genre is required!',
         ];
     }
 }
