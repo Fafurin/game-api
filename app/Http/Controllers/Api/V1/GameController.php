@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends BaseController
 {
+    // получаем игры из бд, сохраняем в кэш и через коллекцию возвращаем json-ответ
     public function index()
     {
         return response()->json(new GameCollection(Cache::remember('games', 60 * 60 * 24, function () {
@@ -19,15 +20,18 @@ class GameController extends BaseController
         })), 200);
     }
 
+    // пытаемся получить игру из бд по id, либо через ресурс возвращаем игру в json-формате либо json-ответ 404
     public function show(int $id)
     {
         $game = Game::find($id);
         if (is_null($game)) {
-            return response()->json(['error' => true, 'message' => 'Not found'], 404);
+            return response()->json(['error' => true, 'message' => 'The game not found'], 404);
         }
         return response()->json(new GameResource($game), 200);
     }
 
+    // если правила валидации не соблюдены возвращаем json-ответ 400
+    // иначе передаем данные из запроса в метод store класса GameService
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), Game::rules());
@@ -39,18 +43,21 @@ class GameController extends BaseController
         return response()->json(new GameResource($game), 201);
     }
 
+    // пытаемся получить игру из бд по id, если игры нет - возвращаем json-ответ 404,
+    // иначе передаем данные из запроса в метод update класса GameService
     public function update(Request $request, int $id)
     {
         $game = Game::find($id);
         if (is_null($game)) {
-            return response()->json(['error' => true, 'message' => 'Not found'], 404);
+            return response()->json(['error' => true, 'message' => 'The game not found'], 404);
         }
-//        // передаем data в метод store GameService
-        $game = $this->service->update($request, $game);
 
+        $game = $this->service->update($request, $game);
         return response()->json(new GameResource($game), 200);
     }
 
+    // пытаемся получить игру из бд по id, если игры нет - возвращаем json-ответ 404,
+    // иначе удаляем игру и возвращаем json-ответ 204
     public function delete(int $id)
     {
         $game = Game::find($id);
@@ -61,12 +68,16 @@ class GameController extends BaseController
         return response()->json('', 204);
     }
 
+    // пытаемся получить жанр из бд по названию, если жанра нет - возвращаем json-ответ 404,
+    // иначе через коллекцию возвращаем игры в json-формате
     public function showByGenre(string $genreName)
     {
         $genre = Genre::where('name', $genreName)->first();
 
+        if (is_null($genre)) {
+            return response()->json(['error' => true, 'message' => 'Genre not found'], 404);
+        }
         $games = $genre->games()->orderBy('name')->get();
-
         return response()->json(new GameCollection($games), 200);
     }
 }

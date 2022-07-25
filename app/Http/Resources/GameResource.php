@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class GameResource extends JsonResource
 {
-    public static $wrap = 'game';
+//    public static $wrap = 'game';
 
     /**
      * Transform the resource into an array.
@@ -15,6 +15,7 @@ class GameResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
+    // определяем необходимые для вывода поля модели
     public function toArray($request)
     {
         return [

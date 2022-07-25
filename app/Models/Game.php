@@ -33,6 +33,7 @@ class Game extends Model
         return $this->belongsTo(Studio::class);
     }
 
+    // правила валидации для сохранения игр в бд
     public static function rules()
     {
         return [

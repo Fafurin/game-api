@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class GameService
 {
-//    метод для добавления игр в бд
+    // метод для добавления игр в бд
     public function store($data)
     {
         try {
@@ -48,13 +48,13 @@ class GameService
         return $game;
     }
 
-//    метод для изменения игр в бд
+    // метод для изменения игр в бд
     public function update($data, $game)
     {
         try {
             Db::beginTransaction();
 
-            // создаем игру с названием name если ее еще нет в бд
+            // меняем название игры
             if (isset($data['name'])) {
                 $game->update(['name' => $data['name']]);
             }
@@ -66,9 +66,10 @@ class GameService
                 // получаем все жанры из бд
                 $dbGenres = Genre::get()->pluck('title');
 
-                // в цикле проверяем наличие жанра в бд, если его нет - создаем и присоединяем к модели игры
+                // создаем пустой массив для жанров
                 $genresArr = [];
 
+                // в цикле проверяем наличие жанра в бд, если его нет - создаем и присоединяем к модели игры
                 foreach ($genres as $genre) {
                     if (!($dbGenres->contains($genre))) {
                         $newGenre = new Genre(['name' => $genre]);
