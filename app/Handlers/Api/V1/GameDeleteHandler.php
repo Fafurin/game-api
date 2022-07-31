@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Controllers;
+namespace App\Handlers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Game;
 
-class GameDeleteController extends Controller
+class GameDeleteHandler
 {
-    public function index(int $id)
+    public function handle($id)
     {
         $game = Game::find($id);
         if (is_null($game)) {
             return response()->json(['error' => true, 'message' => 'Not found'], 404);
         }
         $game->delete();
-        return response()->json('', 204);
+        return response()->json('The game was successfully deleted', 204);
     }
 }

@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GameCollection;
-use App\Models\Genre;
+use App\Repositories\Api\V1\GenreRepository;
 
 class GameViewByGenreController extends Controller
 {
+    public function __construct(public GenreRepository $genreRepository)
+    {
+    }
+
     public function index(string $genreName)
     {
-        $genre = Genre::where('name', $genreName)->first();
+        $genre = $this->genreRepository->getByName($genreName);
 
         if (is_null($genre)) {
             return response()->json(['error' => true, 'message' => 'Genre not found'], 404);
