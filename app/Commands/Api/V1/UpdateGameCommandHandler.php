@@ -6,21 +6,21 @@ use App\Models\Genre;
 use App\Models\Studio;
 use Illuminate\Support\Facades\DB;
 
-class UpdateGameCommandHandler
+class UpdateGameCommandHandler implements UpdateGameCommandHandlerContract
 {
-    public function handle($game, $data)
+    public function handle($game, $request)
     {
         try {
             Db::beginTransaction();
 
             // меняем название игры
-            if (isset($data['name'])) {
-                $game->update(['name' => $data['name']]);
+            if (isset($request['name'])) {
+                $game->update(['name' => $request['name']]);
             }
 
-            if (isset($data['genres'])) {
+            if (isset($request['genres'])) {
                 // убираем лишние пробелы в жанрах
-                $genres = array_filter(array_map('trim', explode(',', $data['genres'])));
+                $genres = array_filter(array_map('trim', explode(',', $request['genres'])));
 
                 // получаем все жанры из бд
                 $dbGenres = Genre::get()->pluck('title');
@@ -40,9 +40,9 @@ class UpdateGameCommandHandler
                 $game->genres()->sync($genresArr);
             }
 
-            if (isset($data['studio'])) {
+            if (isset($request['studio'])) {
 //          создаем студию если ее еще нет в бд
-                $studio = Studio::firstOrCreate(['name' => $data['studio']]);
+                $studio = Studio::firstOrCreate(['name' => $request['studio']]);
 
 //          сохраняем игру в студию
                 $studio->games()->save($game);

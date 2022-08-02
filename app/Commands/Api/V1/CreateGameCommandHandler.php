@@ -7,7 +7,7 @@ use App\Models\Genre;
 use App\Models\Studio;
 use Illuminate\Support\Facades\DB;
 
-class CreateGameCommandHandler
+class CreateGameCommandHandler implements CreateGameCommandHandlerContract
 {
     public function handle($data)
     {
