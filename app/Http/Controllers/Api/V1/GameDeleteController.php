@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Handlers\Api\V1\GameDeleteHandler;
+use App\Handlers\Api\V1\GameDeleteHandlerContract;
 use App\Http\Controllers\Controller;
 
-class GameDeleteController extends Controller
+class GameDeleteController extends Controller implements GameControllerContract
 {
-    public function __construct(public GameDeleteHandler $handler)
+    public function __construct(public GameDeleteHandlerContract $handler)
     {
     }
 
-    public function index($id)
+    public function __invoke()
     {
-        return $this->handler->handle($id);
+        return $this->handler->handle();
     }
 }

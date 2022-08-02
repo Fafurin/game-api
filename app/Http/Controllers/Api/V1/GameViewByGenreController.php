@@ -2,24 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Handlers\Api\V1\GameViewByGenreHandlerContract;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\GameCollection;
-use App\Repositories\Api\V1\GenreRepository;
 
-class GameViewByGenreController extends Controller
+class GameViewByGenreController extends Controller implements GameControllerContract
 {
-    public function __construct(public GenreRepository $genreRepository)
+    public function __construct(public GameViewByGenreHandlerContract $handler)
     {
     }
 
-    public function index(string $genreName)
+    public function __invoke()
     {
-        $genre = $this->genreRepository->getByName($genreName);
-
-        if (is_null($genre)) {
-            return response()->json(['error' => true, 'message' => 'Genre not found'], 404);
-        }
-        $games = $genre->games()->orderBy('name')->get();
-        return response()->json(new GameCollection($games), 200);
+        return $this->handler->handle();
     }
 }

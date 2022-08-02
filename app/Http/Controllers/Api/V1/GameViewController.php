@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Handlers\Api\V1\GameViewHandler;
+use App\Handlers\Api\V1\GameViewHandlerContract;
 use App\Http\Controllers\Controller;
 
-class GameViewController extends Controller
+class GameViewController extends Controller implements GameControllerContract
 {
-    public function __construct(public GameViewHandler $handler)
+    public function __construct(public GameViewHandlerContract $handler)
     {
     }
 
-    public function index($id)
+    public function __invoke()
     {
-        return $this->handler->handle($id);
+        return $this->handler->handle();
     }
 }
