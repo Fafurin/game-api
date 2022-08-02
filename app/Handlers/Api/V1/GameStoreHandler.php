@@ -2,15 +2,15 @@
 
 namespace App\Handlers\Api\V1;
 
-use App\Commands\Api\V1\CreateGameCommandHandler;
+use App\Commands\Api\V1\CreateGameCommandHandlerContract;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class GameStoreHandler
+class GameStoreHandler implements GameStoreHandlerContract
 {
-    public function __construct(public Request $request, public CreateGameCommandHandler $handler)
+    public function __construct(public Request $request, public CreateGameCommandHandlerContract $handler)
     {
     }
 

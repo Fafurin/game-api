@@ -2,23 +2,24 @@
 
 namespace App\Handlers\Api\V1;
 
-use App\Commands\Api\V1\UpdateGameCommandHandler;
+use App\Commands\Api\V1\UpdateGameCommandHandlerContract;
 use App\Http\Resources\GameResource;
 use App\Repositories\Api\V1\GameRepository;
 use Illuminate\Http\Request;
 
-class GameUpdateHandler
+class GameUpdateHandler implements GameUpdateHandlerContract
 {
     public function __construct(
         public Request $request,
-        public UpdateGameCommandHandler $handler,
+        public UpdateGameCommandHandlerContract $handler,
         public GameRepository $gameRepository
     )
     {
     }
 
-    public function handle($id)
+    public function handle()
     {
+        $id = $this->request->id;
         $game = $this->gameRepository->findById($id);
         if (is_null($game)) {
             return response()->json(['error' => true, 'message' => 'The game not found'], 404);

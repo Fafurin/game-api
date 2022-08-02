@@ -6,7 +6,7 @@ use App\Http\Resources\GameCollection;
 use App\Models\Game;
 use Illuminate\Support\Facades\Cache;
 
-class GameListHandler implements GameHandlerContract
+class GameListHandler implements GameListHandlerContract
 {
     public function handle()
     {

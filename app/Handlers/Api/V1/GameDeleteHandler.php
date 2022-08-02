@@ -2,17 +2,26 @@
 
 namespace App\Handlers\Api\V1;
 
-use App\Models\Game;
+use App\Repositories\Api\V1\GameRepository;
+use Illuminate\Http\Request;
 
-class GameDeleteHandler
+class GameDeleteHandler implements GameDeleteHandlerContract
 {
-    public function handle($id)
+    public function __construct(
+        public Request $request,
+        public GameRepository $gameRepository
+    )
     {
-        $game = Game::find($id);
+    }
+
+    public function handle()
+    {
+        $id = $this->request->id;
+        $game = $this->gameRepository->findById($id);
         if (is_null($game)) {
             return response()->json(['error' => true, 'message' => 'Not found'], 404);
         }
         $game->delete();
-        return response()->json('The game was successfully deleted', 204);
+        return response()->json('', 204);
     }
 }
